@@ -42,14 +42,16 @@ export const login = async (nickname, password) => {
             );
         });
     }
-    
+
     let loggedIn = loggedInCheckService();
     return loggedIn;
 };
 
 export const matchLoginDatas = (nickname, password) => {
     return new Promise((resolve, reject) => {
-        fetch("http://localhost:3000/users")
+        fetch(
+            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/users"
+        )
             .then((response) => response.json())
             .then((data) => {
                 data.forEach((d) => {
@@ -66,7 +68,9 @@ export const matchLoginDatas = (nickname, password) => {
 
 export const getUserInfo = (userId) => {
     return new Promise((resolve) => {
-        let url = "http://localhost:3000/userInfo?userId=" + userId;
+        let url =
+            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/userInfo?userId=" +
+            userId;
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
@@ -96,14 +100,17 @@ export const singUp = async (nickname, password, avatar) => {
 
 export const singUpDatas = async (nickname, password) => {
     return new Promise((resolve, reject) => {
-        fetch("http://localhost:3000/users", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-                nickname: nickname,
-                password: password,
-            }),
-        })
+        fetch(
+            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/users",
+            {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({
+                    nickname: nickname,
+                    password: password,
+                }),
+            }
+        )
             .then((response) => response.json())
             .then((data) => {
                 resolve(data);
@@ -113,16 +120,19 @@ export const singUpDatas = async (nickname, password) => {
 
 export const singUpInfoDatas = async (data, avatar) => {
     return new Promise((resolve, reject) => {
-        fetch("http://localhost:3000/userInfo", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-                nickname: data.nickname,
-                avatar: avatar,
-                accountCreationDate: properTime(),
-                userId: data.id,
-            }),
-        })
+        fetch(
+            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/userInfo",
+            {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({
+                    nickname: data.nickname,
+                    avatar: avatar,
+                    accountCreationDate: properTime(),
+                    userId: data.id,
+                }),
+            }
+        )
             .then((response) => response.json())
             .then((data) => {
                 resolve(data);

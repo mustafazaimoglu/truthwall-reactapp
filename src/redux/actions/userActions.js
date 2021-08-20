@@ -9,7 +9,7 @@ export function getAllUserInfosSuccess(payload) {
 
 export function getAllUserInfos() {
     return function (dispatch) {
-        return fetch("http://localhost:3000/userInfo")
+        return fetch("https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/userInfo")
             .then((response) => response.json())
             .then((data) => dispatch(getAllUserInfosSuccess(data)));
     };
@@ -24,7 +24,7 @@ export function getUserPostsSuccess(payload) {
 }
 
 export function getUserPosts(userId) {
-    let url = "http://localhost:3000/posts?userId=" + userId;
+    let url = "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/posts?userId=" + userId;
     return function (dispatch) {
         return fetch(url)
             .then((response) => response.json())
