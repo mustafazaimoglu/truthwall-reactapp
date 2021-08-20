@@ -1,0 +1,29 @@
+@media (max-width: 768px) {
+    .profileInfoBox {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .mobile-margin {
+        margin-top: 1rem;
+    }
+
+    .navbarMKZ {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 1rem;
+    }
+
+    .mobileTopMargin {
+        margin-top: 1rem;
+    }
+
+    .postInfo {
+        display: flex;
+        flex-direction: column;
+    }
+}

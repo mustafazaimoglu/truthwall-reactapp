@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+
+* {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.alertify-notifier{
+    z-index:9999999 !important;
+}
+
+.sp-font {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.75rem;
+    color: #eeffff;
+}
+
+.tw-margin {
+    margin: 1.8rem 0;
+}
+
+.tw-main-bg {
+    background-color: #0e1e25;
+    color: #eeffff;
+}
+
+.tw-soft-bg {
+    background-color: #efffff;
+}
+
+.navline {
+    height: 2px;
+    background: linear-gradient(270deg, rgba(14, 30, 37, 1) 0%, rgba(0, 255, 255, 1) 50%, rgba(14, 30, 37, 1) 100%);
+    margin-top: 1.3rem;
+    margin-bottom: 2.2rem;
+}
+
+.navbarMKZ {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 .1rem 0 .7rem;
+}
+
+.dropimg {
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    border-radius: 22px;
+    padding: 1px;
+}
+
+.dropimg:hover {
+    border: 2px #09ff00 solid;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    min-width: 180px;
+    z-index: 100;
+    box-shadow: 0 0 4px #313131;
+}
+
+.dropdown-content div {
+    border-radius: 5px;
+    padding-left: .65rem;
+    padding-right: .65rem;
+    padding-top: .7rem;
+    padding-bottom: .7rem;
+    color: #0e1e25;
+    font-size: 18px;
+}
+
+.dropdown-content a {
+    display: block;
+}
+
+.dropdown-content div:hover {
+    background-color: #e7e7e7;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+
+}
+
+.mainMarginMinus {
+    margin-top: -2.2rem;
+}
+
+.postCard {
+    border-radius: 5px;
+    background-color: #fff;
+    color: #0e1e25;
+    padding: 1rem;
+    box-shadow: 0 0 4px #969691;
+    color: #696969;
+    height: 100%;
+    display: flex;
+    /* flex-direction: column; */
+}
+
+.profileInfo {
+    border-radius: 5px;
+    background-color: #fff;
+    color: #0e1e25;
+    padding: 1rem;
+    box-shadow: 0 0 4px #969691;
+    color: #696969;
+    margin-bottom: 1rem;
+    border: 2px solid #696969;
+}
+
+.tw-dashed {
+    border: 2px dashed #d9d9d9;
+    padding: .6rem;
+    width: 100%;
+    position: relative;
+}
+
+.profileImg {
+    width: 100%;
+    max-width: 200px;
+    border-radius: 50%;
+}
+
+.profileInfoBox {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+[class*="col-"] {
+    margin-bottom: 1rem;
+    display: flex;
+}
+
+.tw-divider {
+    border-bottom: 2px #757575 solid;
+    margin-bottom: 1rem;
+    margin-top: .7rem;
+}
+
+.tw-post-message {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: .2rem;
+}
+
+.tw-post-message2 {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.postImg {
+    height: 36px;
+    width: 36px;
+    border-radius: 18px;
+    /* border: 1px solid #09ff00; */
+}
+
+#postLink {
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.popUp {
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.popUpBox {
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 0 4px #969691;
+    min-width: 250px;
+    min-height: 320px;
+    width: 40vw;
+    height: 50vh;
+    padding: .6rem .85rem;
+    position: relative;
+}
+
+.closeButton {
+    padding: .5rem .2rem;
+    text-align: right;
+    cursor: pointer;
+}
+
+
+.shareButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+#createPostButton {
+    border-radius: 5px;
+    padding: .55rem;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+}
+
+#userNavLoginButton {
+    border-radius: 5px;
+    padding: .55rem;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    color: #fff;
+}
+
+#userNavLoginButton:hover {
+    background-color: #6e7777;
+    transition: .3s;
+}
+
+#createPostButton:hover {
+    background-color: #6e7777;
+    transition: .3s;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #0e1e25;
+    width: 100vw;
+    height: 100vh;
+    color: #eeffff;
+}
+
+.loginBox {
+    padding: 2.5rem 1.9rem;
+    max-width: 420px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    color: #0e1e25;
+    margin: 1rem;
+}
+
+.loginButton {
+    width: 100%;
+    border: none;
+    color: #efffff;
+    background-color: #15847b;
+    padding: .45rem;
+    border-radius: 8px;
+}
+
+.signUp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #0e1e25;
+    width: 100vw;
+    height: 100vh;
+    color: #eeffff;
+}
+
+.signUpBox {
+    padding: 2.5rem 1.9rem;
+    max-width: 420px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 5px;
+    color: #0e1e25;
+    margin: 1rem;
+}
+
+.signupButton {
+    width: 100%;
+    border: none;
+    color: #efffff;
+    background-color: #15847b;
+    padding: .45rem;
+    border-radius: 8px;
+}
+
+.tw-position {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.postInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .25rem;
+}
