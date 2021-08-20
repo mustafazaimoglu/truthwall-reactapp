@@ -63,7 +63,7 @@ function Login({ loggedIn, loggedInCheck }) {
                     <form onSubmit={loginForm}>
                         <div className="mb-4">
                             <input
-                                type="email"
+                                type="text"
                                 className="form-control"
                                 id="nickname"
                                 name="nickname"

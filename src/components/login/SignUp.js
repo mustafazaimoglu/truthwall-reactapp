@@ -152,7 +152,7 @@ function SignUp({ loggedIn }) {
                         </div>
                         <div className="mb-4">
                             <input
-                                type="email"
+                                type="text"
                                 className="form-control"
                                 id="nickname"
                                 name="nickname"
