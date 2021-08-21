@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 function App({ loggedIn, loggedInCheck }) {
     const [serverStatus, setServerStatus] = useState(null);
-    const [counter, setCounter] = useState(13);
+    const [counter, setCounter] = useState(12);
     const [control] = useState(0);
     useEffect(() => {
         loggedInCheck();
@@ -34,7 +34,7 @@ function App({ loggedIn, loggedInCheck }) {
     }
 
     async function countDown(){
-        for (let index = 12; index >= 0; index--) {
+        for (let index = 11; index >= 0; index--) {
             await countDownValueChanger(index);
         }
         sessionStorage.setItem("server","true");
