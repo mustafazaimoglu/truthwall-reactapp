@@ -32,18 +32,15 @@ export function deletePostSuccess(payload) {
 
 export function createPost(post) {
     return function (dispatch) {
-        return fetch(
-            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/posts",
-            {
-                method: "POST",
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify({
-                    message: post.message,
-                    userId: post.userId,
-                    postDate: properTime(),
-                }),
-            }
-        )
+        return fetch("https://truthwallserver.herokuapp.com/posts", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+                message: post.message,
+                userId: post.userId,
+                postDate: properTime(),
+            }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 dispatch(createPostSuccess(data));
@@ -53,18 +50,14 @@ export function createPost(post) {
 
 export function getPosts() {
     return function (dispatch) {
-        return fetch(
-            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/posts"
-        )
+        return fetch("https://truthwallserver.herokuapp.com/posts")
             .then((response) => response.json())
             .then((data) => dispatch(getPostsSuccess(data)));
     };
 }
 
 export function updatePost(post) {
-    let url =
-        "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/posts/" +
-        post.id;
+    let url = "https://truthwallserver.herokuapp.com/posts/" + post.id;
     return function (dispatch) {
         return fetch(url, {
             method: "PUT",
@@ -83,9 +76,7 @@ export function updatePost(post) {
 }
 
 export function deletePost(id) {
-    let url =
-        "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/posts/" +
-        id;
+    let url = "https://truthwallserver.herokuapp.com/posts/" + id;
     return function (dispatch) {
         return fetch(url, {
             method: "DELETE",

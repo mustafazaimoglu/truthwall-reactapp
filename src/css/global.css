@@ -5,6 +5,16 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+.serverLoading {
+    width: 100vw;
+    height: 100vh;
+    background-color: #efffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .alertify-notifier{
     z-index:9999999 !important;
 }

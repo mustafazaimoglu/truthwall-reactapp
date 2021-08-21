@@ -50,7 +50,7 @@ export const login = async (nickname, password) => {
 export const matchLoginDatas = (nickname, password) => {
     return new Promise((resolve, reject) => {
         fetch(
-            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/users"
+            "https://truthwallserver.herokuapp.com/users"
         )
             .then((response) => response.json())
             .then((data) => {
@@ -69,7 +69,7 @@ export const matchLoginDatas = (nickname, password) => {
 export const getUserInfo = (userId) => {
     return new Promise((resolve) => {
         let url =
-            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/userInfo?userId=" +
+            "https://truthwallserver.herokuapp.com/userInfo?userId=" +
             userId;
         fetch(url)
             .then((response) => response.json())
@@ -101,7 +101,7 @@ export const singUp = async (nickname, password, avatar) => {
 export const singUpDatas = async (nickname, password) => {
     return new Promise((resolve, reject) => {
         fetch(
-            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/users",
+            "https://truthwallserver.herokuapp.com/users",
             {
                 method: "POST",
                 headers: { "content-type": "application/json" },
@@ -121,7 +121,7 @@ export const singUpDatas = async (nickname, password) => {
 export const singUpInfoDatas = async (data, avatar) => {
     return new Promise((resolve, reject) => {
         fetch(
-            "https://my-json-server.typicode.com/mustafazaimoglu/truthwallserver/userInfo",
+            "https://truthwallserver.herokuapp.com/userInfo",
             {
                 method: "POST",
                 headers: { "content-type": "application/json" },
