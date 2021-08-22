@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 function App({ loggedIn, loggedInCheck }) {
     const [serverStatus, setServerStatus] = useState(null);
-    const [counter, setCounter] = useState(10);
+    const [counter, setCounter] = useState(15);
     const [control] = useState(0);
     useEffect(() => {
         loggedInCheck();
@@ -33,7 +33,7 @@ function App({ loggedIn, loggedInCheck }) {
     }
 
     async function countDown() {
-        for (let index = 9; index >= 0; index--) {
+        for (let index = 14; index >= 0; index--) {
             await countDownValueChanger(index);
         }
         sessionStorage.setItem("server", "true");
@@ -45,7 +45,7 @@ function App({ loggedIn, loggedInCheck }) {
             setTimeout(() => {
                 setCounter(value);
                 resolve();
-            }, 1050); // to gain some time I do not want to change 10 seconds so this equals 10.5 sec
+            }, 1000);
         });
     }
 
