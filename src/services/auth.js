@@ -6,16 +6,13 @@ export const loggedInCheckService = () => {
 
     if (userData) {
         const date = new Date();
-        if(userData.expiry < date.getTime())
-        {
+        if (userData.expiry < date.getTime()) {
             localStorage.removeItem("user");
             result = {
                 result: "false",
                 data: "-",
             };
-        }
-        else
-        {
+        } else {
             result = {
                 result: "true",
                 data: userData,
