@@ -5,10 +5,22 @@ export const loggedInCheckService = () => {
     let result;
 
     if (userData) {
-        result = {
-            result: "true",
-            data: userData,
-        };
+        const date = new Date();
+        if(userData.expiry < date.getTime())
+        {
+            localStorage.removeItem("user");
+            result = {
+                result: "false",
+                data: "-",
+            };
+        }
+        else
+        {
+            result = {
+                result: "true",
+                data: userData,
+            };
+        }
     } else {
         result = {
             result: "false",
@@ -31,6 +43,8 @@ export const login = async (nickname, password) => {
 
     if (userId !== -1) {
         await getUserInfo(userId).then((userData) => {
+            const date = new Date();
+            const halfHour = 30 * 1000 * 60; // 30 minutes expiry time
             localStorage.setItem(
                 "user",
                 JSON.stringify({
@@ -38,6 +52,7 @@ export const login = async (nickname, password) => {
                     nickname: userData.nickname,
                     accountCreationDate: userData.accountCreationDate,
                     avatar: userData.avatar,
+                    expiry: date.getTime() + halfHour,
                 })
             );
         });
@@ -49,9 +64,7 @@ export const login = async (nickname, password) => {
 
 export const matchLoginDatas = (nickname, password) => {
     return new Promise((resolve, reject) => {
-        fetch(
-            "https://truthwallserver.herokuapp.com/users"
-        )
+        fetch("https://truthwallserver.herokuapp.com/users")
             .then((response) => response.json())
             .then((data) => {
                 data.forEach((d) => {
@@ -69,8 +82,7 @@ export const matchLoginDatas = (nickname, password) => {
 export const getUserInfo = (userId) => {
     return new Promise((resolve) => {
         let url =
-            "https://truthwallserver.herokuapp.com/userInfo?userId=" +
-            userId;
+            "https://truthwallserver.herokuapp.com/userInfo?userId=" + userId;
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
@@ -100,17 +112,14 @@ export const singUp = async (nickname, password, avatar) => {
 
 export const singUpDatas = async (nickname, password) => {
     return new Promise((resolve, reject) => {
-        fetch(
-            "https://truthwallserver.herokuapp.com/users",
-            {
-                method: "POST",
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify({
-                    nickname: nickname,
-                    password: password,
-                }),
-            }
-        )
+        fetch("https://truthwallserver.herokuapp.com/users", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+                nickname: nickname,
+                password: password,
+            }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 resolve(data);
@@ -120,19 +129,16 @@ export const singUpDatas = async (nickname, password) => {
 
 export const singUpInfoDatas = async (data, avatar) => {
     return new Promise((resolve, reject) => {
-        fetch(
-            "https://truthwallserver.herokuapp.com/userInfo",
-            {
-                method: "POST",
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify({
-                    nickname: data.nickname,
-                    avatar: avatar,
-                    accountCreationDate: properTime(),
-                    userId: data.id,
-                }),
-            }
-        )
+        fetch("https://truthwallserver.herokuapp.com/userInfo", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+                nickname: data.nickname,
+                avatar: avatar,
+                accountCreationDate: properTime(),
+                userId: data.id,
+            }),
+        })
             .then((response) => response.json())
             .then((data) => {
                 resolve(data);
