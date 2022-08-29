@@ -98,7 +98,6 @@ function Profile({
             <div className="col-md-6">
                 <PostCard
                     post={payload}
-                    user={loggedIn.data}
                     owner={"I AM THE OWNER B***H"}
                     deleteHandler={deleteHandler}
                     updateHandler={updateHandler}
@@ -109,31 +108,33 @@ function Profile({
 
     function renderPosts() {
         let result = [];
-        if (userPosts.length === 0) {
-            return (
-                <div className="m-4 p-4">
-                    <hr></hr>
-                    <h2 className="text-center">No post yet.</h2>
-                    <hr></hr>
-                </div>
-            );
-        }
+        if (userPosts !== undefined) {
+            if (userPosts.length === 0) {
+                return (
+                    <div className="m-4 p-4">
+                        <hr></hr>
+                        <h2 className="text-center">No post yet.</h2>
+                        <hr></hr>
+                    </div>
+                );
+            }
 
-        for (let index = 0; index < userPosts.length; index++) {
-            let row;
-            row = (
-                <div className="row" key={index}>
-                    {userPosts[index] !== undefined
-                        ? colmd6(userPosts[index])
-                        : ""}
-                    {userPosts[index + 1] !== undefined
-                        ? colmd6(userPosts[index + 1])
-                        : ""}
-                </div>
-            );
+            for (let index = 0; index < userPosts.length; index++) {
+                let row;
+                row = (
+                    <div className="row" key={index}>
+                        {userPosts[index] !== undefined
+                            ? colmd6(userPosts[index])
+                            : ""}
+                        {userPosts[index + 1] !== undefined
+                            ? colmd6(userPosts[index + 1])
+                            : ""}
+                    </div>
+                );
 
-            result.push(row);
-            index++;
+                result.push(row);
+                index++;
+            }
         }
 
         return result;
@@ -153,7 +154,7 @@ function Profile({
                                     Account creation date :{" "}
                                     {loggedIn.data.accountCreationDate}
                                 </div>
-                                <div>Post count : {userPosts.length}</div>
+                                {/* <div>Post count : {userPosts.length}</div> */}
                             </div>
                             <div>
                                 <img
@@ -187,7 +188,7 @@ function Profile({
 function mapStateToProps(state) {
     return {
         loggedIn: state.loginReducer,
-        userPosts: state.userPostReducer,
+        userPosts: state.userPostReducer.data,
     };
 }
 

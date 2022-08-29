@@ -8,7 +8,6 @@ import av3 from "../../img/user/avatar3.png";
 import av4 from "../../img/user/avatar4.png";
 import { useHistory } from "react-router-dom";
 import { singUp } from "../../services/auth";
-import { sha256 } from "js-sha256";
 import { connect } from "react-redux";
 
 function SignUp({ loggedIn }) {
@@ -35,12 +34,14 @@ function SignUp({ loggedIn }) {
         } else if (password.indexOf(" ") >= 0) {
             alertify.error("Password shouldn't have white spaces.");
         } else {
-            singUp(nickname, sha256(password), avatar).then((response) => {
-                alertify.success(
-                    'Account "' + response.nickname + '" created!'
-                );
-                alertify.notify("You can log in now!");
-                history.push("/login");
+            singUp(nickname, password, avatar).then((response) => {
+                if (response.success) {
+                    alertify.success(response.message);
+                    alertify.notify("You can log in now!");
+                    history.push("/login");
+                } else {
+                    alertify.error(response.message);
+                }
             });
         }
     }

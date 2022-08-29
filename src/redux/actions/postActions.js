@@ -1,3 +1,4 @@
+import { apiPath, apiPath2 } from "../../constants/ApiPath";
 import { properTime } from "../../services/time";
 import * as actionTypes from "./actionTypes";
 
@@ -9,10 +10,9 @@ export function createPostSuccess(payload) {
 }
 
 export function getPostsSuccess(payload) {
-    let newPayload = payload.reverse();
     return {
         type: actionTypes.GET_POSTS_SUCCESS,
-        payload: newPayload,
+        payload: payload,
     };
 }
 
@@ -30,9 +30,22 @@ export function deletePostSuccess(payload) {
     };
 }
 
-export function createPost(post) {
+export function getPosts() {
+    let path = apiPath2 + "posts/getAllDto";
     return function (dispatch) {
-        return fetch("https://truthwallserver.herokuapp.com/posts", {
+        return fetch(path)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                dispatch(getPostsSuccess(data));
+            });
+    };
+}
+
+export function createPost(post) {
+    let path = apiPath + "posts";
+    return function (dispatch) {
+        return fetch(path, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
@@ -48,19 +61,11 @@ export function createPost(post) {
     };
 }
 
-export function getPosts() {
-    return function (dispatch) {
-        return fetch("https://truthwallserver.herokuapp.com/posts")
-            .then((response) => response.json())
-            .then((data) => dispatch(getPostsSuccess(data)));
-    };
-}
-
 export function updatePost(post) {
-    let url = "https://truthwallserver.herokuapp.com/posts/" + post.id;
+    let path = apiPath + "posts/" + post.id;
     return function (dispatch) {
-        return fetch(url, {
-            method: "PUT",
+        return fetch(path, {
+            method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
                 message: post.message,
@@ -76,10 +81,10 @@ export function updatePost(post) {
 }
 
 export function deletePost(id) {
-    let url = "https://truthwallserver.herokuapp.com/posts/" + id;
+    let path = apiPath + "posts/" + id;
     return function (dispatch) {
-        return fetch(url, {
-            method: "DELETE",
+        return fetch(path, {
+            method: "POST",
         })
             .then((response) => response.json())
             .then((data) => dispatch(deletePostSuccess(data)));

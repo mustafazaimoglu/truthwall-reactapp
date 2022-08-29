@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "../../img/svg/brick-wall.svg";
 import { login } from "../../services/auth";
-import { sha256 } from "js-sha256";
 import alertify from "alertifyjs";
 import { loggedInCheck } from "../../redux/actions/loginActions";
 import { useState } from "react";
@@ -22,7 +21,7 @@ function Login({ loggedIn, loggedInCheck }) {
         if (nickname === "" || password === "") {
             alertify.error("Please provide all the fields");
         } else {
-            login(nickname, sha256(password)).then((response) => {
+            login(nickname, password).then((response) => {
                 if (response.result === "true") {
                     alertify.success("Login Success");
                     loggedInCheck();                    

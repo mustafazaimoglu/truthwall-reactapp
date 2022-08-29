@@ -1,23 +1,14 @@
-import { properTime } from "./time";
+import { apiPath2 } from "../constants/ApiPath";
 
 export const loggedInCheckService = () => {
     let userData = JSON.parse(localStorage.getItem("user"));
     let result;
 
     if (userData) {
-        const date = new Date();
-        if (userData.expiry < date.getTime()) {
-            localStorage.removeItem("user");
-            result = {
-                result: "false",
-                data: "-",
-            };
-        } else {
-            result = {
-                result: "true",
-                data: userData,
-            };
-        }
+        result = {
+            result: "true",
+            data: userData,
+        };
     } else {
         result = {
             result: "false",
@@ -29,61 +20,45 @@ export const loggedInCheckService = () => {
 };
 
 export const login = async (nickname, password) => {
-    let userId;
-    await matchLoginDatas(nickname, password)
-        .then((id) => {
-            userId = id;
-        })
-        .catch((err) => {
-            userId = err;
-        });
-
-    if (userId !== -1) {
-        await getUserInfo(userId).then((userData) => {
-            const date = new Date();
-            const halfHour = 30 * 1000 * 60; // 30 minutes expiry time
+    await loginHandler(nickname, password)
+        .then((data) => {
             localStorage.setItem(
                 "user",
                 JSON.stringify({
-                    id: userData.userId,
-                    nickname: userData.nickname,
-                    accountCreationDate: userData.accountCreationDate,
-                    avatar: userData.avatar,
-                    expiry: date.getTime() + halfHour,
+                    id: data.userId,
+                    nickname: data.username,
+                    accountCreationDate: data.accountCreationDate,
+                    avatar: data.avatar,
+                    token: data.token,
                 })
             );
+        })
+        .catch((err) => {
+            console.log(err.message);
         });
-    }
 
     let loggedIn = loggedInCheckService();
     return loggedIn;
 };
 
-export const matchLoginDatas = (nickname, password) => {
+export const loginHandler = (nickname, password) => {
+    let path = apiPath2 + "auth/login";
     return new Promise((resolve, reject) => {
-        fetch("https://truthwallserver.herokuapp.com/users")
+        fetch(path, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+                username: nickname,
+                password: password,
+            }),
+        })
             .then((response) => response.json())
             .then((data) => {
-                data.forEach((d) => {
-                    if (d.nickname === nickname) {
-                        if (d.password === password) {
-                            resolve(d.id);
-                        }
-                    }
-                });
-                reject(-1);
-            });
-    });
-};
-
-export const getUserInfo = (userId) => {
-    return new Promise((resolve) => {
-        let url =
-            "https://truthwallserver.herokuapp.com/userInfo?userId=" + userId;
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                resolve(data[0]);
+                if (data.success) {
+                    resolve(data.data);
+                } else {
+                    reject(data);
+                }
             });
     });
 };
@@ -93,52 +68,38 @@ export const logout = () => {
 };
 
 export const singUp = async (nickname, password, avatar) => {
-    let tempData;
-    let tempLastData;
-
-    await singUpDatas(nickname, password).then((userData) => {
-        tempData = userData;
-    });
-
-    await singUpInfoDatas(tempData, avatar).then((lastData) => {
-        tempLastData = lastData;
-    });
-
-    return tempLastData;
+    let data;
+    await signUpHandler(nickname, password, avatar)
+        .then((res) => {
+            data = res;
+        })
+        .catch((err) => {
+            data = err;
+        });
+    return data;
 };
 
-export const singUpDatas = async (nickname, password) => {
+export const signUpHandler = async (nickname, password, avatar) => {
+    let path = apiPath2 + "auth/register";
     return new Promise((resolve, reject) => {
-        fetch("https://truthwallserver.herokuapp.com/users", {
+        fetch(path, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({
-                nickname: nickname,
+                username: nickname,
                 password: password,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                resolve(data);
-            });
-    });
-};
-
-export const singUpInfoDatas = async (data, avatar) => {
-    return new Promise((resolve, reject) => {
-        fetch("https://truthwallserver.herokuapp.com/userInfo", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-                nickname: data.nickname,
                 avatar: avatar,
-                accountCreationDate: properTime(),
-                userId: data.id,
             }),
         })
             .then((response) => response.json())
             .then((data) => {
-                resolve(data);
+                if (data.success) {
+                    resolve(data);
+                }
+                reject({
+                    message: "Username already exists!",
+                    success: false,
+                });
             });
     });
 };
