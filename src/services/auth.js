@@ -1,4 +1,4 @@
-import { apiPath2 } from "../constants/ApiPath";
+import { apiPath } from "../constants/ApiPath";
 
 export const loggedInCheckService = () => {
     let userData = JSON.parse(localStorage.getItem("user"));
@@ -42,7 +42,7 @@ export const login = async (nickname, password) => {
 };
 
 export const loginHandler = (nickname, password) => {
-    let path = apiPath2 + "auth/login";
+    let path = apiPath + "auth/login";
     return new Promise((resolve, reject) => {
         fetch(path, {
             method: "POST",
@@ -80,7 +80,7 @@ export const singUp = async (nickname, password, avatar) => {
 };
 
 export const signUpHandler = async (nickname, password, avatar) => {
-    let path = apiPath2 + "auth/register";
+    let path = apiPath + "auth/register";
     return new Promise((resolve, reject) => {
         fetch(path, {
             method: "POST",

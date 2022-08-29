@@ -1,25 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PostCard from "../post/PostCard";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { loggedInCheck } from "../../redux/actions/loginActions";
 import { getUserPosts } from "../../redux/actions/userActions";
-import { deletePost } from "../../redux/actions/postActions";
-import { updatePost } from "../../redux/actions/postActions";
+import { deletePost, updatePost } from "../../redux/actions/postActions";
 import { popUpControl } from "../../redux/actions/popUpActions";
-import { getPosts } from "../../redux/actions/postActions";
 import { useEffect, useState } from "react";
 import alertify from "alertifyjs";
 import UpdatePost from "../post/UpdatePost";
+import { convertNormalForm } from "../../services/time";
 
 function Profile({
     loggedIn,
     loggedInCheck,
     getUserPosts,
     userPosts,
-    deletePost,
     popUpControl,
-    updatePost,
-    getPosts,
 }) {
     let history = useHistory();
     const [updatePopUpController, setUpdatePopUpController] = useState("none");
@@ -32,7 +29,6 @@ function Profile({
 
     useEffect(() => {
         getUserPosts(loggedIn.data.id);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedIn]);
 
     function popUpDisplayControllerFunc() {
@@ -55,17 +51,18 @@ function Profile({
             alertify.error("Message is too short!");
         } else {
             updatePost({
-                id: toUpdate.id,
+                postId: toUpdate.postId,
                 message: message,
                 userId: toUpdate.userId,
-            });
-            alertify.success("Post has been updated successfully!");
-
-            setTimeout(() => {
-                getPosts();
-                getUserPosts(loggedIn.data.id);
-            }, 400);
-            setUpdatePopUpController("none");
+            })
+                .then((response) => {
+                    alertify.success(response.message);
+                    getUserPosts(loggedIn.data.id);
+                    setUpdatePopUpController("none");
+                })
+                .catch((error) => {
+                    alertify.error(error);
+                });
         }
     }
 
@@ -74,13 +71,14 @@ function Profile({
             "Warning?",
             "Are you sure?",
             function () {
-                deletePost(post.id);
-                alertify.success("Post has been deleted successfully!");
-
-                setTimeout(() => {
-                    getPosts();
-                    getUserPosts(loggedIn.data.id);
-                }, 400);
+                deletePost(post.postId)
+                    .then((response) => {
+                        alertify.success(response.message);
+                        getUserPosts(loggedIn.data.id);
+                    })
+                    .catch((error) => {
+                        alertify.error(error);
+                    });
             },
             function () {
                 alertify.error("Delete process has been canceled!");
@@ -98,12 +96,20 @@ function Profile({
             <div className="col-md-6">
                 <PostCard
                     post={payload}
-                    owner={"I AM THE OWNER B***H"}
+                    owner={"I AM THE OWNER BRO"}
                     deleteHandler={deleteHandler}
                     updateHandler={updateHandler}
                 />
             </div>
         );
+    }
+
+    function getUserPostCount() {
+        if (userPosts === undefined) {
+            return 0;
+        }
+
+        return userPosts.length;
     }
 
     function renderPosts() {
@@ -152,9 +158,11 @@ function Profile({
                                 </div>
                                 <div>
                                     Account creation date :{" "}
-                                    {loggedIn.data.accountCreationDate}
+                                    {convertNormalForm(
+                                        loggedIn.data.accountCreationDate
+                                    )}
                                 </div>
-                                {/* <div>Post count : {userPosts.length}</div> */}
+                                <div>Post count : {getUserPostCount()}</div>
                             </div>
                             <div>
                                 <img
@@ -195,10 +203,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     loggedInCheck,
     getUserPosts,
-    deletePost,
     popUpControl,
-    updatePost,
-    getPosts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

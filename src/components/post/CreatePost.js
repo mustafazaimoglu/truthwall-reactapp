@@ -10,7 +10,6 @@ function CreatePost({
     loggedIn,
     popUp,
     popUpControl,
-    createPost,
     getUserPosts,
     getPosts,
 }) {
@@ -30,18 +29,19 @@ function CreatePost({
         } else {
             const post = {
                 userId: loggedIn.data.id,
-                message: message,
+                message: message.trim(),
             };
 
-            createPost(post);
-            alertify.success("Post has been created succesfully!");
-
-            setTimeout(() => {
+            createPost(post).then(response => {
+                console.log(response);
+                alertify.success("Post has been created succesfully!");
                 popUpClose();
                 getPosts();
                 getUserPosts(loggedIn.data.id);
                 setMessage("");
-            }, 400);
+            }).catch(error => {
+                alertify.error(error)
+            })
         }
     }
 
@@ -78,7 +78,7 @@ function CreatePost({
                                 className="shareButton btn btn-info"
                                 type="submit"
                             >
-                                Share
+                                Save
                             </button>
                         </form>
                     </div>
@@ -97,7 +97,6 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
     popUpControl,
-    createPost,
     getPosts,
     getUserPosts,
 };

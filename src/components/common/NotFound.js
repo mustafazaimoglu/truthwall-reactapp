@@ -15,7 +15,7 @@ export default class NotFound extends Component {
             >
                 <h1>NOT FOUND</h1>
                 <hr />
-                <h3>Step back, step back</h3>
+                <h3>Wrong number, pal!</h3>
             </div>
         );
     }

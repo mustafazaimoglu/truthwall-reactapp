@@ -1,4 +1,9 @@
 export function getToken() {
     let userData = JSON.parse(localStorage.getItem("user"));
-    return userData.token;
+    if (userData) {
+        return userData.token;
+    } else {
+        return null;
+    }
+    
 }

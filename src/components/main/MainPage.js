@@ -1,19 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PostCard from "../post/PostCard";
 import { getPosts } from "../../redux/actions/postActions";
-import { getAllUserInfos } from "../../redux/actions/userActions";
 
-function MainPage({ getPosts, posts, users, getAllUserInfos }) {
+function MainPage({ getPosts, posts, getAllUserInfos }) {
     useEffect(() => {
-        if (posts === undefined) {
-            getPosts();
-        }
-
-        if (users.length === 0) {
-            getAllUserInfos();
-        }
-    });
+        getPosts();
+    }, []);
 
     function colmd7(payload) {
         return (
@@ -91,7 +85,6 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
     getPosts,
-    getAllUserInfos,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
