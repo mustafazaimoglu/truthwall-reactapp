@@ -29,7 +29,7 @@ function App({ loggedIn, loggedInCheck }) {
     }
 
     function serverWaker() {
-        fetch("https://truthwallserver.herokuapp.com");
+        fetch("https://truthwall-backend.herokuapp.com");
     }
 
     async function countDown() {
