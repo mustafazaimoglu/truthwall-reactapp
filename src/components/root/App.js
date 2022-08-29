@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 function App({ loggedIn, loggedInCheck }) {
     const [serverStatus, setServerStatus] = useState(null);
-    const [counter, setCounter] = useState(1);
+    const [counter, setCounter] = useState(15);
     const [control] = useState(0);
     useEffect(() => {
         loggedInCheck();
@@ -33,7 +33,7 @@ function App({ loggedIn, loggedInCheck }) {
     }
 
     async function countDown() {
-        for (let index = 1; index >= 0; index--) {
+        for (let index = 14; index >= 0; index--) {
             await countDownValueChanger(index);
         }
         sessionStorage.setItem("server", "true");
@@ -62,10 +62,10 @@ function App({ loggedIn, loggedInCheck }) {
                                 {'"' + counter + '"'}
                             </h1>
                         </div>
-                        <h2>Mock server is loading...</h2>
+                        <h2>Server is loading...</h2>
                         <h4 className="text-danger">
-                            Do not forget this is a mock server after couple
-                            hours everything you have done will be vanished.
+                            Server is on heroku and it loves sleeping :) so I gotta wake it up!
+                            Hold on!
                         </h4>
                     </div>
                 </div>
