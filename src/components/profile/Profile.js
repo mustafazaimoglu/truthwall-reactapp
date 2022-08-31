@@ -29,6 +29,10 @@ function Profile({
 
     useEffect(() => {
         getUserPosts(loggedIn.data.id);
+    }, []);
+
+    useEffect(() => {
+        getUserPosts(loggedIn.data.id);
     }, [loggedIn]);
 
     function popUpDisplayControllerFunc() {

@@ -33,7 +33,6 @@ function CreatePost({
             };
 
             createPost(post).then(response => {
-                console.log(response);
                 alertify.success("Post has been created succesfully!");
                 popUpClose();
                 getPosts();
