@@ -2,12 +2,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PostCard from "../post/PostCard";
-import { getPosts } from "../../redux/actions/postActions";
+import { getPosts, getPostsUserMode } from "../../redux/actions/postActions";
 
-function MainPage({ getPosts, posts, getAllUserInfos }) {
+function MainPage({ loggedIn, getPosts, getPostsUserMode, posts }) {
     useEffect(() => {
-        getPosts();
-    }, []);
+        if (loggedIn.result === false) {
+            getPosts();
+        } else {
+            getPostsUserMode(loggedIn.data.id);
+        }
+    }, [loggedIn]);
 
     function colmd7(payload) {
         return (
@@ -71,7 +75,7 @@ function MainPage({ getPosts, posts, getAllUserInfos }) {
 
     return (
         <div>
-            <div className="container mainMarginMinus">{renderPosts()}</div>
+            <div className="container-lg mainMarginMinus">{renderPosts()}</div>
         </div>
     );
 }
@@ -80,11 +84,13 @@ function mapStateToProps(state) {
     return {
         posts: state.postListReducer.data,
         users: state.userReducer,
+        loggedIn: state.loginReducer,
     };
 }
 
 const mapDispatchToProps = {
     getPosts,
+    getPostsUserMode,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

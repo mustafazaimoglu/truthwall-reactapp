@@ -20,6 +20,18 @@ export function getPosts() {
     };
 }
 
+export function getPostsUserMode(userId) {
+    let path = apiPath + "posts/getAllDtoUserMode?userId=" + userId;
+    console.log(path);
+    return function (dispatch) {
+        return fetch(path)
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch(getPostsSuccess(data));
+            });
+    };
+}
+
 export function createPost(post) {
     let path = apiPath + "posts/save";
     return new Promise((resolve, reject) => {

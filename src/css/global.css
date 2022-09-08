@@ -6,7 +6,7 @@
 }
 
 body {
-   background-color: #0e1e25;
+    background-color: #0e1e25;
 }
 
 .serverLoading {
@@ -19,8 +19,8 @@ body {
     align-items: center;
 }
 
-.alertify-notifier{
-    z-index:9999999 !important;
+.alertify-notifier {
+    z-index: 9999999 !important;
 }
 
 .sp-font {
@@ -111,16 +111,76 @@ body {
     margin-top: -2.2rem;
 }
 
+.postCard-parent {
+    width: 100%;
+    /* display: flex; */
+    min-height: 180px;
+}
+
+
 .postCard {
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #fff;
     color: #0e1e25;
     padding: 1rem;
     box-shadow: 0 0 4px #969691;
     color: #696969;
     height: 100%;
+    transition: .4s;
     display: flex;
-    /* flex-direction: column; */
+}
+
+/* .postCard:hover {
+background-color: red;
+} */
+
+.action-center {
+    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: .4s;
+    margin-left: .4rem;
+    padding: .4rem .5rem;
+    border: 2px dashed #d9d9d9;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.postCard:hover .action-center {
+    display: flex;
+
+}
+
+.action-center-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem .25rem;
+    background-color: #eeeeee;
+    width: 100%;
+    margin: .2rem;
+    border-radius: 10px;
+    transition: .4s;
+    cursor: pointer;
+    height: 100%;
+}
+
+.action-center-item:hover {
+    background-color: #cecece;
+}
+
+.like-dislike-count-holder {
+    display: flex;
+    justify-content: space-around;
+    background-color: #eeeeee;
+    border-radius: 10px;
+}
+
+.like-dislike-count-holder-item {
+    padding: 0 .25rem;
 }
 
 .profileInfo {
@@ -136,9 +196,17 @@ body {
 
 .tw-dashed {
     border: 2px dashed #d9d9d9;
+    border-radius: 8px;
     padding: .6rem;
     width: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.like-dislike-icon {
+    width: 24px;
 }
 
 .profileImg {
@@ -160,19 +228,20 @@ body {
 
 .tw-divider {
     border-bottom: 2px #757575 solid;
-    margin-bottom: 1rem;
-    margin-top: .7rem;
+    margin-bottom: .75rem;
+    margin-top: .6rem;
 }
 
 .tw-post-message {
     font-style: italic;
     text-align: center;
-    margin-bottom: .2rem;
+    margin-bottom: .75rem;
+    word-break: break-all;
+    margin-left: 0.35rem;
+    margin-right: .35rem;
 }
 
-.tw-post-message2 {
-    font-style: italic;
-    text-align: center;
+.extra-margin-bottom {
     margin-bottom: 3rem;
 }
 
@@ -323,5 +392,4 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: .25rem;
 }

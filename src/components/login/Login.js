@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 function Login({ loggedIn, loggedInCheck }) {
     let history = useHistory();
-    if (loggedIn.result === "true") {
+    if (loggedIn.result === true) {
         history.push("/profile");
     }
 
@@ -22,7 +22,7 @@ function Login({ loggedIn, loggedInCheck }) {
             alertify.error("Please provide all the fields");
         } else {
             login(nickname, password).then((response) => {
-                if (response.result === "true") {
+                if (response.result === true) {
                     alertify.success("Login Success");
                     loggedInCheck();                    
                 } else {

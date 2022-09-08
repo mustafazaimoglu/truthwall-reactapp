@@ -23,7 +23,7 @@ function Profile({
     const [toUpdate, setToUpdate] = useState("");
     const [message, setMessage] = useState("");
 
-    if (loggedIn.result === "false") {
+    if (loggedIn.result === false) {
         history.push("/");
     }
 
