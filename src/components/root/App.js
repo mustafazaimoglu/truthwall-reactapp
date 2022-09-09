@@ -6,13 +6,12 @@ import Login from "../login/Login";
 import SignUp from "../login/SignUp";
 import Dashboard from "./Dashboard";
 import { loggedInCheck } from "../../redux/actions/loginActions";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-function App({ loggedIn, loggedInCheck }) {
-    const [control] = useState(0);
+function App({ loggedInCheck }) {
     useEffect(() => {
         loggedInCheck();
-    }, [control]);
+    },[]);
 
     return (
         <div className="tw-soft-bg">

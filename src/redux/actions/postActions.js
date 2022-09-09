@@ -20,6 +20,22 @@ export function getPosts() {
     };
 }
 
+export function getPostsUserMode(userId) {
+    let path = apiPath + "posts/getAllDtoUserMode?userId=" + userId;
+    return function (dispatch) {
+        return fetch(path, {
+            headers: {
+                Authorization: "Bearer " + getToken(),
+                "content-type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                dispatch(getPostsSuccess(data));
+            });
+    };
+}
+
 export function createPost(post) {
     let path = apiPath + "posts/save";
     return new Promise((resolve, reject) => {

@@ -63,11 +63,11 @@ function CreatePost({
                     </div>
                     <div className="popUpBox">
                         <h3>Message :</h3>
-                        <form onSubmit={messagePostForm}>
+                        <form onSubmit={messagePostForm} style={{height: "calc(100% - 100px)"}}>
                             <textarea
                                 className="form-control mt-3"
                                 placeholder="Please write down your message"
-                                style={{ height: "200px" }}
+                                style={{ height: "100%" }}
                                 name="message"
                                 id="message"
                                 value={message}

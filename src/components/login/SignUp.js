@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 
 function SignUp({ loggedIn }) {
     let history = useHistory();
-    if (loggedIn.result === "true") {
+    if (loggedIn.result === true) {
         history.push("/profile");
     }
 

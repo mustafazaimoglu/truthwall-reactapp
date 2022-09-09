@@ -6,12 +6,12 @@ export const loggedInCheckService = () => {
 
     if (userData) {
         result = {
-            result: "true",
+            result: true,
             data: userData,
         };
     } else {
         result = {
-            result: "false",
+            result: false,
             data: "-",
         };
     }

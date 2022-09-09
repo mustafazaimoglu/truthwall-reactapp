@@ -10,7 +10,7 @@ import alertify from "alertifyjs";
 function Navbar({ loggedIn, popUp, popUpControl, ...props }) {
     let history = useHistory();
     function createPostPopUp() {
-        if (loggedIn.result === "false") {
+        if (loggedIn.result === false) {
             alertify.warning("Please log in first!");
             history.push("/login");
         } else {

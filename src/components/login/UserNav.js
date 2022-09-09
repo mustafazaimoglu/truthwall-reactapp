@@ -59,7 +59,7 @@ function UserNav({loggedIn, loggedInCheck}) {
         );
     }
 
-    return <div>{loggedIn.result === "false" ? renderNotLoggedIn() : renderLoggedIn()}</div>;
+    return <div>{loggedIn.result === false ? renderNotLoggedIn() : renderLoggedIn()}</div>;
 }
 
 function mapStateToProps(state) {
