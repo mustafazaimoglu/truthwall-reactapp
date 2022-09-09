@@ -113,10 +113,8 @@ body {
 
 .postCard-parent {
     width: 100%;
-    /* display: flex; */
     min-height: 180px;
 }
-
 
 .postCard {
     border-radius: 8px;
@@ -130,12 +128,7 @@ body {
     display: flex;
 }
 
-/* .postCard:hover {
-background-color: red;
-} */
-
 .action-center {
-    /* display: none; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -146,11 +139,6 @@ background-color: red;
     border: 2px dashed #d9d9d9;
     border-radius: 8px;
     font-size: 14px;
-}
-
-.postCard:hover .action-center {
-    display: flex;
-
 }
 
 .action-center-item {
@@ -166,10 +154,19 @@ background-color: red;
     transition: .4s;
     cursor: pointer;
     height: 100%;
+    color: #000;
 }
 
 .action-center-item:hover {
-    background-color: #cecece;
+    opacity: .75;
+}
+
+.action-center-item-liked {
+    background-color: #18d1ff;
+}
+
+.action-center-item-disliked {
+    background-color: #ff653e;
 }
 
 .like-dislike-count-holder {

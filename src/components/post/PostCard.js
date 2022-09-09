@@ -1,16 +1,69 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { connect } from "react-redux";
+import { useRef } from "react";
 import { convertNormalForm } from "../../services/time";
 import likeIcon from "../../img/svg/like.svg";
 import dislikeIcon from "../../img/svg/dislike.svg";
+import alertify from "alertifyjs";
 
-function PostCard({ post, owner, deleteHandler, updateHandler }) {
+function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
+    const likeButtonDiv = useRef();
+    const dislikeButtonDiv = useRef();
+
     const newStyle =
-        owner === undefined ? "like-dislike-count-holder" : "like-dislike-count-holder extra-margin-bottom";
+        owner === undefined
+            ? "like-dislike-count-holder"
+            : "like-dislike-count-holder extra-margin-bottom";
+    const actionCenterItem = "action-center-item";
+    const actionCenterItemLiked =
+        actionCenterItem + " action-center-item-liked";
+    const actionCenterItemDisliked =
+        actionCenterItem + " action-center-item-disliked";
 
-    const styyyle = post.userInteraction;
-    console.log(styyyle);
+    const likeButtonStyle =
+        post.userInteraction === 1 ? actionCenterItemLiked : actionCenterItem;
+    const dislikeButtonStyle =
+        post.userInteraction === -1
+            ? actionCenterItemDisliked
+            : actionCenterItem;
 
-// Give some love to buttons
+    function likeButtonClickHandler() {
+        if (loggedIn.result === false) {
+            alertify.warning("Please log in first!");
+            return;
+        }
+
+        if (post.userInteraction === 1) {
+            likeButtonDiv.current.className = actionCenterItem;
+            post.userInteraction = 0;
+        } else if (post.userInteraction === -1) {
+            dislikeButtonDiv.current.className = actionCenterItem;
+            likeButtonDiv.current.className = actionCenterItemLiked;
+            post.userInteraction = 1;
+        } else {
+            likeButtonDiv.current.className = actionCenterItemLiked;
+            post.userInteraction = 1;
+        }
+    }
+
+    function dislikeButtonClickHandler() {
+        if (loggedIn.result === false) {
+            alertify.warning("Please log in first!");
+            return;
+        }
+
+        if (post.userInteraction === 1) {
+            likeButtonDiv.current.className = actionCenterItem;
+            dislikeButtonDiv.current.className = actionCenterItemDisliked;
+            post.userInteraction = -1;
+        } else if (post.userInteraction === -1) {
+            dislikeButtonDiv.current.className = actionCenterItem;
+            post.userInteraction = 0;
+        } else {
+            dislikeButtonDiv.current.className = actionCenterItemDisliked;
+            post.userInteraction = -1;
+        }
+    }
 
     return (
         <div className="postCard-parent">
@@ -69,7 +122,11 @@ function PostCard({ post, owner, deleteHandler, updateHandler }) {
                     )}
                 </div>
                 <div className="action-center">
-                    <div className="action-center-item">
+                    <div
+                        className={likeButtonStyle}
+                        ref={likeButtonDiv}
+                        onClick={likeButtonClickHandler}
+                    >
                         <img
                             src={likeIcon}
                             alt="like-svg"
@@ -77,7 +134,11 @@ function PostCard({ post, owner, deleteHandler, updateHandler }) {
                         ></img>
                         Like
                     </div>
-                    <div className="action-center-item">
+                    <div
+                        className={dislikeButtonStyle}
+                        ref={dislikeButtonDiv}
+                        onClick={dislikeButtonClickHandler}
+                    >
                         <img
                             src={dislikeIcon}
                             alt="dislike-svg"
@@ -92,7 +153,7 @@ function PostCard({ post, owner, deleteHandler, updateHandler }) {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {loggedIn: state.loginReducer};
 }
 
 const mapDispatchToProps = {};

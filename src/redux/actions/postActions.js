@@ -22,7 +22,6 @@ export function getPosts() {
 
 export function getPostsUserMode(userId) {
     let path = apiPath + "posts/getAllDtoUserMode?userId=" + userId;
-    console.log(path);
     return function (dispatch) {
         return fetch(path)
             .then((response) => response.json())
