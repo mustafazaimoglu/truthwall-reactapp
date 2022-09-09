@@ -1,14 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { connect } from "react-redux";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { convertNormalForm } from "../../services/time";
 import likeIcon from "../../img/svg/like.svg";
 import dislikeIcon from "../../img/svg/dislike.svg";
 import alertify from "alertifyjs";
+import {
+    dislikePost,
+    likePost,
+    undislikeAndLikePost,
+    undislikePost,
+    unlikeAndDislikePost,
+    unlikePost,
+} from "../../services/likeDislikeService";
 
 function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
     const likeButtonDiv = useRef();
     const dislikeButtonDiv = useRef();
+    const [likeCountState, setLikeCountState] = useState(post.likeCount);
+    const [dislikeCountState, setDislikeCountState] = useState(
+        post.dislikeCount
+    );
 
     const newStyle =
         owner === undefined
@@ -35,14 +47,42 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
 
         if (post.userInteraction === 1) {
             likeButtonDiv.current.className = actionCenterItem;
+            setLikeCountState((likeCountState) => likeCountState - 1);
             post.userInteraction = 0;
+
+            unlikePost(post.postId, loggedIn.data.id)
+                .then((res) => {
+                    alertify.notify("Post unlike success!");
+                })
+                .catch((err) => {
+                    alertify.error(err);
+                });
         } else if (post.userInteraction === -1) {
             dislikeButtonDiv.current.className = actionCenterItem;
+            setDislikeCountState((dislikeCountState) => dislikeCountState - 1);
             likeButtonDiv.current.className = actionCenterItemLiked;
+            setLikeCountState((likeCountState) => likeCountState + 1);
             post.userInteraction = 1;
+
+            undislikeAndLikePost(post.postId, loggedIn.data.id)
+                .then((res) => {
+                    alertify.success("Post undislike and like success!");
+                })
+                .catch((err) => {
+                    alertify.error(err);
+                });
         } else {
             likeButtonDiv.current.className = actionCenterItemLiked;
+            setLikeCountState((likeCountState) => likeCountState + 1);
             post.userInteraction = 1;
+
+            likePost(post.postId, loggedIn.data.id)
+                .then((res) => {
+                    alertify.success("Post like success!");
+                })
+                .catch((err) => {
+                    alertify.error(err);
+                });
         }
     }
 
@@ -54,14 +94,42 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
 
         if (post.userInteraction === 1) {
             likeButtonDiv.current.className = actionCenterItem;
+            setLikeCountState((likeCountState) => likeCountState - 1);
             dislikeButtonDiv.current.className = actionCenterItemDisliked;
+            setDislikeCountState((dislikeCountState) => dislikeCountState + 1);
             post.userInteraction = -1;
+
+            unlikeAndDislikePost(post.postId, loggedIn.data.id)
+                .then((res) => {
+                    alertify.success("Post unlike and dislike success!");
+                })
+                .catch((err) => {
+                    alertify.error(err);
+                });
         } else if (post.userInteraction === -1) {
             dislikeButtonDiv.current.className = actionCenterItem;
+            setDislikeCountState((dislikeCountState) => dislikeCountState - 1);
             post.userInteraction = 0;
+
+            undislikePost(post.postId, loggedIn.data.id)
+                .then((res) => {
+                    alertify.notify("Post undislike success!");
+                })
+                .catch((err) => {
+                    alertify.error(err);
+                });
         } else {
             dislikeButtonDiv.current.className = actionCenterItemDisliked;
+            setDislikeCountState((dislikeCountState) => dislikeCountState + 1);
             post.userInteraction = -1;
+
+            dislikePost(post.postId, loggedIn.data.id)
+                .then((res) => {
+                    alertify.success("Post dislike success!");
+                })
+                .catch((err) => {
+                    alertify.error(err);
+                });
         }
     }
 
@@ -96,10 +164,10 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
                     </div>
                     <div className={newStyle}>
                         <div className="like-dislike-count-holder-item">
-                            {post.likeCount} Like
+                            {likeCountState} Like
                         </div>
                         <div className="like-dislike-count-holder-item">
-                            {post.dislikeCount} Dislike
+                            {dislikeCountState} Dislike
                         </div>
                     </div>
                     {owner === undefined ? (
@@ -153,7 +221,7 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
 }
 
 function mapStateToProps(state) {
-    return {loggedIn: state.loginReducer};
+    return { loggedIn: state.loginReducer };
 }
 
 const mapDispatchToProps = {};

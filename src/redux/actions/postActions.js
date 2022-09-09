@@ -23,7 +23,12 @@ export function getPosts() {
 export function getPostsUserMode(userId) {
     let path = apiPath + "posts/getAllDtoUserMode?userId=" + userId;
     return function (dispatch) {
-        return fetch(path)
+        return fetch(path, {
+            headers: {
+                Authorization: "Bearer " + getToken(),
+                "content-type": "application/json",
+            },
+        })
             .then((response) => response.json())
             .then((data) => {
                 dispatch(getPostsSuccess(data));

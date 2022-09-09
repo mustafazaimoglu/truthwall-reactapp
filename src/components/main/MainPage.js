@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PostCard from "../post/PostCard";
 import { getPosts, getPostsUserMode } from "../../redux/actions/postActions";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 function MainPage({ loggedIn, getPosts, getPostsUserMode, posts }) {
     useEffect(() => {
@@ -16,6 +17,7 @@ function MainPage({ loggedIn, getPosts, getPostsUserMode, posts }) {
     function colmd7(payload) {
         return (
             <div className="col-md-7">
+             {/* <div className="col-md-6"> */}
                 <PostCard post={payload} />
             </div>
         );
@@ -23,6 +25,7 @@ function MainPage({ loggedIn, getPosts, getPostsUserMode, posts }) {
     function colmd5(payload) {
         return (
             <div className="col-md-5">
+            {/* <div className="col-md-6"> */}
                 <PostCard post={payload} />
             </div>
         );
@@ -68,7 +71,10 @@ function MainPage({ loggedIn, getPosts, getPostsUserMode, posts }) {
                 result.push(row);
                 index++;
             }
+        } else {
+            return <LoadingSpinner/>
         }
+    
 
         return result;
     }
