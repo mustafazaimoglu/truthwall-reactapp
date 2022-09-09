@@ -186,12 +186,13 @@ body {
 }
 
 .like-dislike-count-holder-item span {
-    padding: .1rem .75rem;
+    padding: 0 .75rem;
     border-radius: 10px;
-    background-color: #bde1ff;
+    /* background-color: #bde1ff; */
     text-align: center;
     color: #000;
     font-weight: 500;
+    border: 2px solid #858585;
 }
 
 .profileInfo {
