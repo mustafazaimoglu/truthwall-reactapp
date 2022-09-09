@@ -185,6 +185,15 @@ body {
     padding: 0 .25rem;
 }
 
+.like-dislike-count-holder-item span {
+    padding: .1rem .75rem;
+    border-radius: 10px;
+    background-color: #bde1ff;
+    text-align: center;
+    color: #000;
+    font-weight: 500;
+}
+
 .profileInfo {
     border-radius: 5px;
     background-color: #fff;
@@ -238,8 +247,7 @@ body {
     font-style: italic;
     text-align: center;
     margin-bottom: .75rem;
-    word-break: break-all;
-    margin-left: 0.35rem;
+    margin-left: .35rem;
     margin-right: .35rem;
 }
 

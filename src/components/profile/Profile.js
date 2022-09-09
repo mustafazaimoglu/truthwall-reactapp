@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import alertify from "alertifyjs";
 import UpdatePost from "../post/UpdatePost";
 import { convertNormalForm } from "../../services/time";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 function Profile({
     loggedIn,
@@ -145,6 +146,8 @@ function Profile({
                 result.push(row);
                 index++;
             }
+        } else {
+            return <LoadingSpinner />
         }
 
         return result;

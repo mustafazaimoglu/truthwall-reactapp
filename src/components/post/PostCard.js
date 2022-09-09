@@ -164,10 +164,10 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
                     </div>
                     <div className={newStyle}>
                         <div className="like-dislike-count-holder-item">
-                            {likeCountState} Like
+                            <span>{likeCountState}</span> Like
                         </div>
                         <div className="like-dislike-count-holder-item">
-                            {dislikeCountState} Dislike
+                            <span>{dislikeCountState}</span> Dislike
                         </div>
                     </div>
                     {owner === undefined ? (
