@@ -47,5 +47,14 @@
         align-items: center;
         margin-top: .4rem;
         margin-left: unset;
+        font-size: 13px;
+    }
+
+    .action-center-item {
+        padding: .2rem 0 0;
+    }
+
+    .like-dislike-icon {
+        width: 20px;
     }
 }
