@@ -36,8 +36,6 @@ function Profile({
         getUserPosts(loggedIn.data.id);
     }, [loggedIn]);
 
-    console.log(userPosts);
-
     function popUpDisplayControllerFunc() {
         updatePopUpController === "none"
             ? setUpdatePopUpController("block")

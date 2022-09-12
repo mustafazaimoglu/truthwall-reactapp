@@ -18,8 +18,6 @@ function MainPage({ loggedIn, getPosts, getPostsUserMode, posts }) {
         }
     }
 
-    console.log(posts);
-
     function colmd7(payload) {
         return (
             <div className="col-md-7">
