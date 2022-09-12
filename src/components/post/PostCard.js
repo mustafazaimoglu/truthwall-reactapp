@@ -17,10 +17,7 @@ import {
 function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
     const likeButtonDiv = useRef();
     const dislikeButtonDiv = useRef();
-    const [likeCountState, setLikeCountState] = useState(post.likeCount);
-    const [dislikeCountState, setDislikeCountState] = useState(
-        post.dislikeCount
-    );
+    const [forceRender, setForceRender] = useState(0);
 
     const newStyle =
         owner === undefined
@@ -47,8 +44,9 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
 
         if (post.userInteraction === 1) {
             likeButtonDiv.current.className = actionCenterItem;
-            setLikeCountState((likeCountState) => likeCountState - 1);
+            post.likeCount = post.likeCount - 1;
             post.userInteraction = 0;
+            setForceRender((forceRender) => forceRender + 1);
 
             unlikePost(post.postId, loggedIn.data.id)
                 .then((res) => {
@@ -59,10 +57,11 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
                 });
         } else if (post.userInteraction === -1) {
             dislikeButtonDiv.current.className = actionCenterItem;
-            setDislikeCountState((dislikeCountState) => dislikeCountState - 1);
+            post.dislikeCount = post.dislikeCount - 1;
             likeButtonDiv.current.className = actionCenterItemLiked;
-            setLikeCountState((likeCountState) => likeCountState + 1);
+            post.likeCount = post.likeCount + 1;
             post.userInteraction = 1;
+            setForceRender((forceRender) => forceRender + 1);
 
             undislikeAndLikePost(post.postId, loggedIn.data.id)
                 .then((res) => {
@@ -73,8 +72,9 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
                 });
         } else {
             likeButtonDiv.current.className = actionCenterItemLiked;
-            setLikeCountState((likeCountState) => likeCountState + 1);
+            post.likeCount = post.likeCount + 1;
             post.userInteraction = 1;
+            setForceRender((forceRender) => forceRender + 1);
 
             likePost(post.postId, loggedIn.data.id)
                 .then((res) => {
@@ -94,10 +94,11 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
 
         if (post.userInteraction === 1) {
             likeButtonDiv.current.className = actionCenterItem;
-            setLikeCountState((likeCountState) => likeCountState - 1);
+            post.likeCount = post.likeCount - 1;
             dislikeButtonDiv.current.className = actionCenterItemDisliked;
-            setDislikeCountState((dislikeCountState) => dislikeCountState + 1);
+            post.dislikeCount = post.dislikeCount + 1;
             post.userInteraction = -1;
+            setForceRender((forceRender) => forceRender + 1);
 
             unlikeAndDislikePost(post.postId, loggedIn.data.id)
                 .then((res) => {
@@ -108,8 +109,9 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
                 });
         } else if (post.userInteraction === -1) {
             dislikeButtonDiv.current.className = actionCenterItem;
-            setDislikeCountState((dislikeCountState) => dislikeCountState - 1);
+            post.dislikeCount = post.dislikeCount - 1;
             post.userInteraction = 0;
+            setForceRender((forceRender) => forceRender + 1);
 
             undislikePost(post.postId, loggedIn.data.id)
                 .then((res) => {
@@ -120,8 +122,9 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
                 });
         } else {
             dislikeButtonDiv.current.className = actionCenterItemDisliked;
-            setDislikeCountState((dislikeCountState) => dislikeCountState + 1);
+            post.dislikeCount = post.dislikeCount + 1;
             post.userInteraction = -1;
+            setForceRender((forceRender) => forceRender + 1);
 
             dislikePost(post.postId, loggedIn.data.id)
                 .then((res) => {
@@ -164,10 +167,10 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
                     </div>
                     <div className={newStyle}>
                         <div className="like-dislike-count-holder-item">
-                            <span>{likeCountState}</span> Like
+                            <span>{post.likeCount}</span> Like
                         </div>
                         <div className="like-dislike-count-holder-item">
-                            <span>{dislikeCountState}</span> Dislike
+                            <span>{post.dislikeCount}</span> Dislike
                         </div>
                     </div>
                     {owner === undefined ? (
@@ -216,6 +219,7 @@ function PostCard({ post, owner, deleteHandler, updateHandler, loggedIn }) {
                     </div>
                 </div>
             </div>
+            <div style={{ display: "none" }}>{forceRender}</div>
         </div>
     );
 }

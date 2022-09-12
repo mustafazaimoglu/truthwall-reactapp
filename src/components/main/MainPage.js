@@ -7,12 +7,18 @@ import LoadingSpinner from "../common/LoadingSpinner";
 
 function MainPage({ loggedIn, getPosts, getPostsUserMode, posts }) {
     useEffect(() => {
+        fetchData()
+    }, [loggedIn]);
+
+    function fetchData() {
         if (loggedIn.result === false) {
             getPosts();
         } else {
             getPostsUserMode(loggedIn.data.id);
         }
-    }, [loggedIn]);
+    }
+
+    console.log(posts);
 
     function colmd7(payload) {
         return (
