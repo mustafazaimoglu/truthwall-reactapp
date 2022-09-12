@@ -2,7 +2,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import closeSVG from "../../img/svg/close.svg";
 import { popUpControl } from "../../redux/actions/popUpActions";
-import { createPost, getPosts } from "../../redux/actions/postActions";
+import { createPost, getPostsUserMode } from "../../redux/actions/postActions";
 import { getUserPosts } from "../../redux/actions/userActions";
 import alertify from "alertifyjs";
 
@@ -11,7 +11,7 @@ function CreatePost({
     popUp,
     popUpControl,
     getUserPosts,
-    getPosts,
+    getPostsUserMode,
 }) {
     const [message, setMessage] = useState("");
 
@@ -35,7 +35,7 @@ function CreatePost({
             createPost(post).then(response => {
                 alertify.success("Post has been created succesfully!");
                 popUpClose();
-                getPosts();
+                getPostsUserMode(loggedIn.data.id);
                 getUserPosts(loggedIn.data.id);
                 setMessage("");
             }).catch(error => {
@@ -96,7 +96,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
     popUpControl,
-    getPosts,
+    getPostsUserMode,
     getUserPosts,
 };
 
