@@ -50,7 +50,7 @@ function SignUp({ loggedIn }) {
         let tempName = event.target.name;
         let tempValue = event.target.value;
         if (tempName === "nickname") {
-            setNickname(tempValue);
+            setNickname(tempValue.trim().toLocaleLowerCase());
         } else if (tempName === "password") {
             setPassword(tempValue);
         } else {
@@ -158,6 +158,7 @@ function SignUp({ loggedIn }) {
                                 id="nickname"
                                 name="nickname"
                                 placeholder="Nickname"
+                                value={nickname}
                                 onChange={inputChangeHandler}
                             />
                         </div>

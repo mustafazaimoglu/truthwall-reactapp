@@ -24,7 +24,7 @@ function Login({ loggedIn, loggedInCheck }) {
             login(nickname, password).then((response) => {
                 if (response.result === true) {
                     alertify.success("Login Success");
-                    loggedInCheck();                    
+                    loggedInCheck();
                 } else {
                     alertify.error("Password or Nickname is wrong!");
                 }
@@ -36,7 +36,7 @@ function Login({ loggedIn, loggedInCheck }) {
         let tempName = event.target.name;
         let tempValue = event.target.value;
         if (tempName === "nickname") {
-            setNickname(tempValue);
+            setNickname(tempValue.trim().toLocaleLowerCase());
         } else {
             setPassword(tempValue);
         }
@@ -67,6 +67,7 @@ function Login({ loggedIn, loggedInCheck }) {
                                 id="nickname"
                                 name="nickname"
                                 placeholder="Nickname"
+                                value={nickname}
                                 onChange={inputChangeHandler}
                             />
                         </div>
